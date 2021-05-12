@@ -1,0 +1,9 @@
+{
+    "name": "ocdladefense/wp-committees",
+    "description": "This plugin queries for OCDLA committees and their members and displays these on the WordPress page",
+    "type": "wordpress-theme",
+    "minimum-stability": "dev",
+    "require": {
+        "ocdladefense/wp-salesforce": "~1.0"
+    }
+}
