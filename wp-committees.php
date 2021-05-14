@@ -18,17 +18,17 @@ Text Domain: wp-committes-plugin
 require_once(ABSPATH . '/wp-content/plugins/wp-committees/committees-array.php');
 //require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/wp-salesforce.php');
 
-$committees = get_committees_array();
-
-// TESTING...
-//var_dump($committees);
-//exit;
-
 // If this file is accessed directly, abort.
 defined('ABSPATH') or die('You shall not pass!');
 
 // Setting a CONSTANT for the plugin dir path
 define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+$committees = get_committees_array();
+
+// TESTING...
+//var_dump($committees);
+//exit;
 
 // Adding a template to the 'Page Attributes' dropdown and including our custom template
 //add_filter('theme_page_templates', 'add_page_template');

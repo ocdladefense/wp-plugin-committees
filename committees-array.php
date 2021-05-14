@@ -1,12 +1,12 @@
 <?php
 
 require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/wp-salesforce.php');
-require_once(ABSPATH . '/wp-content/plugins/wp-committees/Template.php');
+//require_once(ABSPATH . '/wp-content/plugins/wp-committees/Template.php');
 
 function get_committees_array()
 {
-    $tpl = new Template("test-list.tpl.php");
-    $tpl->addPath(ABSPATH . '/wp-content/plugins/wp-committees/templates/');
+    //$tpl = new Template("test-list.tpl.php");
+    //$tpl->addPath(ABSPATH . '/wp-content/plugins/wp-committees/templates/');
 
     // Test
     //var_dump($tpl);
