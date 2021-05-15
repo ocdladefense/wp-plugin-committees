@@ -16,6 +16,11 @@ h3 {
     color: #bf9500;
 }
 
+#city {
+    color: #53638c;
+    font-weight: 600;
+}
+
 @media screen and (min-width: 800px) {
     .table-headers {
         display: table-row;
@@ -36,11 +41,11 @@ function checkRole($member)
 ?>
 
 <div>
-    <h2 class="ml-5" style="padding-left: 12px;">OCDLA Committees</h2>
+    <h2 class="text-muted ml-5" style="padding-left: 12px;">OCDLA Committees</h2>
 </div>
 
 <div id="intro" class="m-5 text-muted" style="padding-left: 12px;">
-    <p>Welcome to OCDLA's Committees Page. Below is the list of all the committees and their respective members.</p>
+    <p>Welcome to OCDLA's Committees page. Below is the list of all the committees and their respective members.</p>
     <p>You may navigate to a member's contact information by clicking on a specific member's link associated </p>
     <p>with the committee of interest.</p>
 </div>
@@ -55,11 +60,12 @@ function checkRole($member)
 <?php foreach ($committees as $committee) : ?>
 
 <h3 class="ml-5" style="padding-left: 12px;"><?php print $committee["Name"]; ?></h3>
-<table class=" table w-auto ml-5 mt-3 mb-5 mr-5">
+<table class="table w-auto ml-5 mt-3 mb-5 mr-5">
     <thead>
-        <tr>
+        <tr class="text-muted">
             <th>Name</th>
             <th>Role</th>
+            <th>City</th>
             <th>Phone</th>
             <th>Email</th>
         </tr>
@@ -76,6 +82,9 @@ function checkRole($member)
             <td>
                 <?php print $member["Role"]; ?>
             </td>
+            <td id="city">
+                <?php print $member["City"]; ?>
+            </td>
             <td>
                 <?php print $member["Phone"]; ?>
             </td>
@@ -85,7 +94,7 @@ function checkRole($member)
         </tr>
         <?php endforeach; ?>
     </tbody>
+</table>
 
-
-    <?php endforeach; ?>
-    <?php endif; ?>
+<?php endforeach; ?>
+<?php endif; ?>

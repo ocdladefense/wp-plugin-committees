@@ -50,6 +50,7 @@ function includeMemberInfo($committeeRecords)
                 "Id" => $rec["Contact__r"]["Id"],
                 "Title" => $rec["Contact__r"]["Title"],
                 "Role" => $rec["Role__c"],
+                "City" => $rec["Contact__r"]["Ocdla_Home_City__c"],
                 "Name" => $rec["Contact__r"]["Name"],
                 "Phone" => $rec["Contact__r"]["Phone"],
                 "Email" => $rec["Contact__r"]["Email"]
