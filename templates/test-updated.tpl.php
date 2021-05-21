@@ -4,21 +4,29 @@
 }
 
 #intro {
-    line-height: 10px;
     font-size: 18px;
-}
-
-tr {
-    text-align: left;
 }
 
 h3 {
     color: #bf9500;
 }
 
+#email {
+    color: rgba(0, 0, 139, 0.8);
+    font-weight: bold;
+}
+
+#name {
+    color: grey;
+}
+
 #city {
     color: #53638c;
     font-weight: 600;
+}
+
+p {
+    word-wrap: break-word;
 }
 
 @media screen and (min-width: 800px) {
@@ -33,7 +41,10 @@ h3 {
 // Helper function that determines wether a member entry should be bold based on a Role
 function checkRole($member)
 {
-    $roles = ["Chair", "Board Liaison", "President"];
+    $roles = [
+        "Chair", "Co-chair", "Board Liaison", "President",
+        "Vice President", "Executive Director", "Legislative Director"
+    ];
     if (in_array($member["Role"], $roles) || $member["Name"] == "Bob Thuemmel") {
         echo 'bold';
     }
@@ -44,10 +55,13 @@ function checkRole($member)
     <h2 class="text-muted ml-5" style="padding-left: 12px;">OCDLA Committees</h2>
 </div>
 
-<div id="intro" class="m-5 text-muted" style="padding-left: 12px;">
-    <p>Welcome to OCDLA's Committees page. Below is the list of all the committees and their respective members.</p>
-    <p>You may navigate to a member's contact information by clicking on a specific member's link associated </p>
-    <p>with the committee of interest.</p>
+<div class="row">
+    <div id="intro" class="col-md-5 ml-5 mt-3 mb-5 text-muted">
+        <p style="padding-left: 12px;">Welcome to OCDLA's Committees page. Below is the list of all the committees and
+            their respective members. You may navigate to a member's contact information by clicking on a specific
+            member's link associated with the committee of interest.
+        </p>
+    </div>
 </div>
 
 <?php if (!isset($committees) || (isset($committees) && count($committees) < 1)) : ?>
@@ -59,42 +73,34 @@ function checkRole($member)
 
 <?php foreach ($committees as $committee) : ?>
 
-<h3 class="ml-5" style="padding-left: 12px;"><?php print $committee["Name"]; ?></h3>
-<table class="table w-auto ml-5 mt-3 mb-5 mr-5">
-    <thead>
-        <tr class="text-muted">
-            <th>Name</th>
-            <th>Role</th>
-            <th>City</th>
-            <th>Phone</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php $members = $committee["members"]; ?>
-        <?php foreach ($members as $member) : ?>
-        <tr style="font-weight:<?php checkRole($member) ?>;">
-            <td>
-                <a href="https://members.ocdla.org/directory/member/<?php print $member["Id"]; ?>">
-                    <?php print $member["Title"] . " " . $member["Name"]; ?>
-                </a>
-            </td>
-            <td>
-                <?php print $member["Role"]; ?>
-            </td>
-            <td id="city">
-                <?php print $member["City"]; ?>
-            </td>
-            <td>
-                <?php print $member["Phone"]; ?>
-            </td>
-            <td>
-                <?php print $member["Email"]; ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<a href="http://sf/page?data=<?php echo $committee["Name"]; ?>">
+    <h3 class="ml-5" style="padding-left: 12px;"><?php print $committee["Name"]; ?></h3>
+</a>
+<div class="w-auto ml-5 mt-3 mb-5 mr-5">
+
+    <?php $members = $committee["members"]; ?>
+    <?php foreach ($members as $member) : ?>
+
+    <span style="padding-left: 12px;">
+        <a href="https://members.ocdla.org/directory/member/<?php print $member["Id"]; ?>" id='name'>
+            <?php print $member["Name"] . " |"; ?>
+        </a>
+    </span>
+    <span style="font-weight:<?php checkRole($member) ?>;">
+        <?php substr($member["Role"], -4) != "mber" ? print $member["Role"] : ""; ?>
+    </span>
+    <span id="city">
+        <?php $member["City"] != null ? print $member["City"] . " |" : ""; ?>
+    </span>
+    <span>
+        <?php $email = $member["Email"]; ?>
+        <?php echo "<a href='mailto:$email' id='email'>Email</a>"; ?>
+    </span>
+    <br>
+
+    <?php endforeach; ?>
+
+</div>
 
 <?php endforeach; ?>
 <?php endif; ?>

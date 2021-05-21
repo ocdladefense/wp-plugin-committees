@@ -1,16 +1,11 @@
 <?php
 
 require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/wp-salesforce.php');
-//require_once(ABSPATH . '/wp-content/plugins/wp-committees/Template.php');
 
 function get_committees_array()
 {
     //$tpl = new Template("test-list.tpl.php");
     //$tpl->addPath(ABSPATH . '/wp-content/plugins/wp-committees/templates/');
-
-    // Test
-    //var_dump($tpl);
-    //exit;
 
     $committeeRecords = get_committee_records();
     //var_dump($committeeRecords);
@@ -18,12 +13,18 @@ function get_committees_array()
 
     $formattedCommitteesArray = includeMemberInfo($committeeRecords);
 
-    return $formattedCommitteesArray;
+    // Sorting in alphabetic order
+    sort($formattedCommitteesArray);
 
     //Testing...
     //var_dump($formattedCommitteesArray);
     //exit;
     //
+
+    // Calls function 'sort_members_by_role' to get a sorted array
+    $sortedByRole = sort_members_by_role($formattedCommitteesArray);
+
+    return $sortedByRole;
 
     //return $tpl->render(array(
     //"committees" => $formattedCommitteesArray,
@@ -63,5 +64,86 @@ function includeMemberInfo($committeeRecords)
     }
     //var_dump($committees); // TESTING
     //exit;
+
     return $committees;
+}
+
+// This function recreates an array based on member roles and their priorities
+function sort_members_by_role($committees)
+{
+    // Sorted array based on roles
+    $sortedCommitteesArray = [];
+
+    foreach ($committees as $rec) {
+
+        // An array that will hold related records based on role priorities
+        $newArray = [
+            "Name" => $rec["Name"],
+            "members" => []
+        ];
+
+        // Define the order of roles
+        // Members not assigned a role will not appear on the list
+        $roles = [
+            "Chair",
+            "Co-chair",
+            "Board Liaison",
+            "Legislative Director",
+            "Executive Director",
+            "President",
+            "Vice President",
+            "Secretary",
+            "Willamette University",
+            "University of Oregon",
+            "Ex Officio Member",
+            "Consulting Member",
+            "Advisory Member",
+            "Voting Member",
+            "Member"
+        ];
+
+        // The list of members in the order it will be displayed on the page
+        $list = [];
+
+        // Will hold members grouped by their respective roles
+        $grouped = [];
+
+        // Grouping by roles
+        foreach ($rec["members"] as $member) {
+            $role = $member["Role"];
+            $grouped[$role][] = $member;
+        }
+
+        // Filling $list array based on the role order
+        foreach ($roles as $role) {
+            if ($grouped[$role] != null) {
+                $list[$role] = $grouped[$role];
+            }
+        }
+
+        // Assigning a flattened version of members based on their roles
+        $newArray["members"] = flatten_array($list, $roles);
+
+        $sortedCommitteesArray[] = $newArray;
+    }
+
+    //var_dump($sortedCommitteesArray);
+    //exit;
+
+    return $sortedCommitteesArray;
+}
+
+// Flattening the array containing roles
+function flatten_array($list, $roles)
+{
+    $flatArray = [];
+    // comparing roles in the list array against our "master" role values
+    for ($i = 0; $i < 16; $i++) {
+        if ($list[$roles[$i]] != null) {
+            foreach ($list[$roles[$i]] as $role) {
+                array_push($flatArray, $role);
+            }
+        }
+    }
+    return $flatArray;
 }
