@@ -1,8 +1,6 @@
 <?php
 
-
-
-require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/records.php');
+//require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/records.php');
 
 function get_committees_array()
 {

@@ -17,9 +17,10 @@ Text Domain: wp-committes-plugin
 // Setting a CONSTANT for the plugin dir path
 define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
-// Referencing committees.php to return a fromatted array
+// Referencing required files
 require_once(MY_PLUGIN_DIR . '/includes/committees-array.inc');
 require_once(MY_PLUGIN_DIR . '/includes/records.inc');
+require_once(ABSPATH . 'wp-content/plugins/wp-salesforce/wp-salesforce.php');
 
 // If this file is accessed directly, abort.
 defined('ABSPATH') or die('You shall not pass!');
