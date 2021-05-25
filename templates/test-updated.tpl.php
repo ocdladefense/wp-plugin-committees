@@ -51,8 +51,10 @@ function checkRole($member)
 }
 ?>
 
+<?php $separator = "<span style='color: #bf9500; font-weight: bold;'> | </span>"; ?>
+
 <div>
-    <h2 class="text-muted ml-5" style="padding-left: 12px;">OCDLA Committees</h2>
+    <h2 class="text-muted ml-5 mt-5" style="padding-left: 12px;">OCDLA Committees</h2>
 </div>
 
 <div class="row">
@@ -82,15 +84,15 @@ function checkRole($member)
     <?php foreach ($members as $member) : ?>
 
     <span style="padding-left: 12px;">
-        <a href="https://members.ocdla.org/directory/member/<?php print $member["Id"]; ?>" id='name'>
-            <?php print $member["Name"] . " |"; ?>
+        <a href="https://members.ocdla.org/directory/member/<?php print $member["Id"]; ?>" target="_blank" id="name">
+            <?php print $member["Name"] . $separator; ?>
         </a>
     </span>
     <span style="font-weight:<?php checkRole($member) ?>;">
-        <?php substr($member["Role"], -4) != "mber" ? print $member["Role"] : ""; ?>
+        <?php substr($member["Role"], -4) != "mber" ? print $member["Role"] . $separator : ""; ?>
     </span>
     <span id="city">
-        <?php $member["City"] != null ? print $member["City"] . " |" : ""; ?>
+        <?php $member["City"] != null ? print $member["City"] . $separator : ""; ?>
     </span>
     <span>
         <?php $email = $member["Email"]; ?>

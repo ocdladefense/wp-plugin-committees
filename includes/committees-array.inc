@@ -1,13 +1,16 @@
 <?php
 
-require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/wp-salesforce.php');
+
+
+require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/records.php');
 
 function get_committees_array()
 {
     //$tpl = new Template("test-list.tpl.php");
     //$tpl->addPath(ABSPATH . '/wp-content/plugins/wp-committees/templates/');
 
-    $committeeRecords = get_committee_records();
+    // Calling get_records() function with "committees" param to get committee/member records
+    $committeeRecords = get_committee_records(); // <- add "committees" string param to query within wp-salesfoce
     //var_dump($committeeRecords);
     //exit;
 
@@ -121,7 +124,7 @@ function sort_members_by_role($committees)
             }
         }
 
-        // Assigning a flattened version of members based on their roles
+        // Calling a function that returns a flattened version of members based on their roles
         $newArray["members"] = flatten_array($list, $roles);
 
         $sortedCommitteesArray[] = $newArray;
@@ -138,7 +141,7 @@ function flatten_array($list, $roles)
 {
     $flatArray = [];
     // comparing roles in the list array against our "master" role values
-    for ($i = 0; $i < 16; $i++) {
+    for ($i = 0; $i < count($roles); $i++) {
         if ($list[$roles[$i]] != null) {
             foreach ($list[$roles[$i]] as $role) {
                 array_push($flatArray, $role);

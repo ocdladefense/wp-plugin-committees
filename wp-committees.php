@@ -14,40 +14,18 @@ License: GPLv2 or later
 Text Domain: wp-committes-plugin
 */
 
+// Setting a CONSTANT for the plugin dir path
+define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
 // Referencing committees.php to return a fromatted array
-require_once(ABSPATH . '/wp-content/plugins/wp-committees/committees-array.php');
-//require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/wp-salesforce.php');
+require_once(MY_PLUGIN_DIR . '/includes/committees-array.inc');
+require_once(MY_PLUGIN_DIR . '/includes/records.inc');
 
 // If this file is accessed directly, abort.
 defined('ABSPATH') or die('You shall not pass!');
-
-// Setting a CONSTANT for the plugin dir path
-define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
 $committees = get_committees_array();
 
 // TESTING...
 //var_dump($committees);
 //exit;
-
-// Adding a template to the 'Page Attributes' dropdown and including our custom template
-//add_filter('theme_page_templates', 'add_page_template');
-//add_filter('template_include', 'include_page_template', 99);
-
-
-//function add_page_template($templates)
-//{
-    //$templates[MY_PLUGIN_DIR . 'templates/test-list.tpl.php'] = __('Template from plugin', 'text-domain');
-    //return $templates;
-//}
-
-//function include_page_template($template)
-//{
-    //$newTemplate = MY_PLUGIN_DIR . '/templates/test-list.tpl.php';
-
-    //if (file_exists($newTemplate)) {
-        //return $newTemplate;
-    //}
-
-    //return $template;
-//}
