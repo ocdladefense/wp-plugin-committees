@@ -7,6 +7,13 @@
     font-size: 18px;
 }
 
+h1 {
+    padding-left: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 1.0em;
+}
+
 h3 {
     color: #bf9500;
 }
@@ -54,14 +61,13 @@ function checkRole($member)
 <?php $separator = "<span style='color: #bf9500; font-weight: bold;'> | </span>"; ?>
 
 <div>
-    <h2 class="text-muted ml-5 mt-5" style="padding-left: 12px;">OCDLA Committees</h2>
+    <h1 class="text-muted ml-5 mt-5 font-weight-bold">Committees & Task Forces</h1>
 </div>
 
 <div class="row">
     <div id="intro" class="col-md-5 ml-5 mt-3 mb-5 text-muted">
-        <p style="padding-left: 12px;">Welcome to OCDLA's Committees page. Below is the list of all the committees and
-            their respective members. You may navigate to a member's contact information by clicking on a specific
-            member's link associated with the committee of interest.
+        <p style="padding-left: 12px;">OCDLA committees are volunteer driven and are open to interested members. Contact
+            the committee chairs below if you would like to become involved.
         </p>
     </div>
 </div>

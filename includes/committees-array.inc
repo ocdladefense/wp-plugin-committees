@@ -1,7 +1,5 @@
 <?php
 
-//require_once(ABSPATH . '/wp-content/plugins/wp-salesforce/records.php');
-
 function get_committees_array()
 {
     //$tpl = new Template("test-list.tpl.php");
