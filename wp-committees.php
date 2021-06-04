@@ -21,9 +21,16 @@ defined('ABSPATH') or die('You shall not pass!');
 define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
 // Referencing required files
-require_once(MY_PLUGIN_DIR . '/includes/committees-array.inc');
-require_once(MY_PLUGIN_DIR . '/includes/records.inc');
-require_once(MY_PLUGIN_DIR . '/includes/redirect.inc');
+
+// NOT WORKING
+//require_once(MY_PLUGIN_DIR . '/includes/committees-array.inc');
+//require_once(MY_PLUGIN_DIR . '/includes/records.inc');
+//require_once(MY_PLUGIN_DIR . '/includes/redirect.inc');
+
+require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/committees-array.inc');
+require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/records.inc');
+require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/redirect.inc');
+
 require_once(ABSPATH . 'wp-content/plugins/wp-salesforce/wp-salesforce.php');
 
 $committees = get_committees_array();
