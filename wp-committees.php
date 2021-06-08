@@ -20,6 +20,9 @@ defined('ABSPATH') or die('You shall not pass!');
 // Setting a CONSTANT for the plugin dir path
 define('OCDLA_COMMITTEES_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
+define('OCDLA_MEMBERSHIP_DIRECTORY_DOMAIN', 'https://members.ocdla.org');
+
+
 // Referencing required files
 
 // NOT WORKING

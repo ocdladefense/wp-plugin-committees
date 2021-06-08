@@ -10,7 +10,7 @@ function add_committees_url()
 
 function committees_query_vars($vars)
 {
-    if ($vars['name'] == 'contact-committee') {
+    if (isset($vars['name']) && $vars['name'] == 'contact-committee') {
         $vars['contact-committee'] = true;
     }
 
