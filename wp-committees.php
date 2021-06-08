@@ -18,22 +18,14 @@ Text Domain: wp-committes-plugin
 defined('ABSPATH') or die('You shall not pass!');
 
 // Setting a CONSTANT for the plugin dir path
-define('MY_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('OCDLA_COMMITTEES_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
 // Referencing required files
 
 // NOT WORKING
-//require_once(MY_PLUGIN_DIR . '/includes/committees-array.inc');
-//require_once(MY_PLUGIN_DIR . '/includes/records.inc');
-//require_once(MY_PLUGIN_DIR . '/includes/redirect.inc');
-
-require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/committees-array.inc');
-require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/records.inc');
-require_once(ABSPATH . 'wp-content/plugins/wp-committees/includes/redirect.inc');
-
-require_once(ABSPATH . 'wp-content/plugins/wp-salesforce/wp-salesforce.php');
-
-$committees = get_committees_array();
+require_once(OCDLA_COMMITTEES_PLUGIN_DIR . '/includes/committees-array.inc');
+require_once(OCDLA_COMMITTEES_PLUGIN_DIR . '/includes/records.inc');
+require_once(OCDLA_COMMITTEES_PLUGIN_DIR . '/includes/redirect.inc');
 
 add_action('init', "add_committees_url");
 
@@ -42,6 +34,17 @@ add_filter('request', "committees_query_vars");
 add_filter('template_include', "setting_committees_template");
 
 add_filter('init', 'flush_rules');
+
+
+// Helper function that determines wether a member entry should be bold based on a Role
+function hasPosition($member)
+{
+    $roles = [
+        "Chair", "Co-chair", "Board Liaison", "President",
+        "Vice President", "Executive Director", "Legislative Director"
+    ];
+    return (in_array($member["Role"], $roles) || $member["Name"] == "Bob Thuemmel");
+}
 
 // TESTING...
 //var_dump($committees);
