@@ -4,6 +4,6 @@
     "type": "wordpress-theme",
     "minimum-stability": "dev",
     "require": {
-        "ocdladefense/wp-salesforce": "~1.0"
+        "ocdladefense/wp-salesforce": "dev-development"
     }
 }

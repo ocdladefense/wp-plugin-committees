@@ -36,12 +36,22 @@ add_filter('request', "committees_query_vars");
 
 add_filter('template_include', "setting_committees_template");
 
-add_filter('init', 'flush_rules');
+add_filter('init', 'wp_committees_flush_rules');
 
 
 // Helper function that determines wether a member entry should be bold based on a Role
+
+// Use the load_api function to get the roles.
+
+
 function hasPosition($member)
 {
+    $api = load_api();
+    // query for the picklist values on the relationship__c object
+    $results = $api->query("SELECT DISTINCT Role__c FROM Relationship__c WHERE Role__c != 'Member'");
+
+    var_dump($results);exit;
+
     $roles = [
         "Chair", "Co-chair", "Board Liaison", "President",
         "Vice President", "Executive Director", "Legislative Director"
