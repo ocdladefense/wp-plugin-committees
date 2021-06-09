@@ -41,24 +41,74 @@ add_filter('init', 'wp_committees_flush_rules');
 
 // Helper function that determines wether a member entry should be bold based on a Role
 
-// Use the load_api function to get the roles.
 
+// What should this function be called?
+function hasPosition($member) {
 
-function hasPosition($member)
-{
-    $api = load_api();
-    // query for the picklist values on the relationship__c object
-    $results = $api->query("SELECT DISTINCT Role__c FROM Relationship__c WHERE Role__c != 'Member'");
+    static $roles;
 
-    var_dump($results);exit;
+    if(null == $roles){
 
-    $roles = [
-        "Chair", "Co-chair", "Board Liaison", "President",
-        "Vice President", "Executive Director", "Legislative Director"
-    ];
-    return (in_array($member["Role"], $roles) || $member["Name"] == "Bob Thuemmel");
+        $api = load_api();
+
+        $result = $api->query("SELECT Role__c FROM Relationship__c WHERE Role__c != 'Member' GROUP BY Role__c");
+
+        $roles = $result->getRecords();
+    
+    }
+
+    return (in_array($member["Role"], $roles));
 }
 
-// TESTING...
-//var_dump($committees);
-//exit;
+function isMember($role){
+
+    return substr($role, -4) != "mber";
+}
+
+function getCommitteeLink($committeeName) {
+
+    $links = array(
+        "Amicus Curiae" => array(
+            "url" => "/wp-content/uploads/2020/08/Amicus-Committee-Guidelines.pdf",
+            "text" => "Amicus Curiae Guidelines"
+        ),
+        "Capital Defenders" => array(
+            "url" => "/shop-membr-capdef.shtml",
+            "text" => "Go to the Capital Defenders page"
+        ),
+        "Education" => array(
+            "url" => "/contact-committee-education.shtml",
+            "text" => "Go to the Education Committee page."
+        ),
+        "Honored Members Steering Committee" => array(
+            "url" => "/about-honored/",
+            "text" => "View honored members."
+        ),
+        "Juvenile Law" => array(
+            "url" => "/contact-committee-juvenile/",
+            "text" => "Go to the Juvenile Law Committee page."
+        ),
+        "Legislative" => array(
+            "url" => "/news-legis/",
+            "text" => "Go to the Legislative Advocacy page for full committee list."
+        ),
+        "Oregon Legal Investigators Committee" => array(
+            "url" => "/contact-committee-oregon-legal-investigators-committee/",
+            "text" => "Go to the Oregon Legal Investigators Committee page."
+        ),
+        "Public Defense Reform Task Force" => array(
+            "url" => "/public-defense-reform-task-force/",
+            "text" => "Go to the Public Defense Reform Task Force page."
+        ),
+        "Pay Parity Advisory Committee" => array(
+            "url" => "/contact-committee-pay-parity-advisory/",
+            "text" => "Go to the Pay Parity Advisory Committee page."
+        ),
+        "Strike Force Committee Members" => array(
+            "url" => "/ocdla-strike-force/",
+            "text" => "Go to the Strike Force Committee page."
+        )
+    );
+
+    return $links[$committeeName];
+}
