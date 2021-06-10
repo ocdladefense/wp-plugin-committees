@@ -57,12 +57,7 @@ function hasPosition($member) {
     
     }
 
-    return (in_array($member["Role"], $roles));
-}
-
-function isMember($role){
-
-    return substr($role, -4) != "mber";
+    return in_array($member["Role"], $roles);
 }
 
 function getCommitteeLink($committeeName) {
